@@ -15,7 +15,8 @@ export async function POST(request: NextRequest) {
   const { data: userData } = await supabase.auth.getUser();
 
   if (!userData.user) {
-    return NextResponse.json({ error: "Sign in required (FR-17)." }, { status: 401 });
+    // FR-17: a fleet manager must be signed in to issue a code.
+    return NextResponse.json({ error: "Sign in required." }, { status: 401 });
   }
 
   const body = await request.json().catch(() => null);

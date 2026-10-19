@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Button } from "./Button";
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
@@ -22,8 +23,8 @@ export function ThemeToggle() {
   }
 
   return (
-    <button type="button" onClick={toggle} className="bolt-btn bolt-btn-secondary" aria-label="Toggle theme">
+    <Button type="button" variant="ghost" onClick={toggle} aria-label="Toggle theme">
       {theme === "dark" ? "Light mode" : "Dark mode"}
-    </button>
+    </Button>
   );
 }

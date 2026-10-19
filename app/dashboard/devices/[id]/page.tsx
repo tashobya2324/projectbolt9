@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { Card } from "@/components/Card";
+import { Card, CardHeader } from "@/components/Card";
 import { FuelChart } from "@/components/FuelChart";
 import { TamperFeed } from "@/components/TamperFeed";
 import { UnlockControl } from "@/components/UnlockControl";
@@ -32,13 +32,13 @@ export default async function DeviceDetailPage({ params }: { params: { id: strin
 
       <div className="grid grid-cols-2 gap-[var(--space-400)]">
         <Card>
-          <h3 className="mb-[var(--space-300)] text-[16px] font-medium">Fuel level, last 24 hours</h3>
+          <CardHeader title="Fuel level, last 24 hours" />
           <div className="h-[200px]">
             <FuelChart points={fuelHistory} />
           </div>
         </Card>
         <Card>
-          <h3 className="mb-[var(--space-300)] text-[16px] font-medium">Access control</h3>
+          <CardHeader title="Access control" />
           <p className="mb-[var(--space-300)] text-[14px] text-[var(--text-100)]">
             Issue a time limited, single use unlock code for this device.
           </p>
@@ -47,7 +47,7 @@ export default async function DeviceDetailPage({ params }: { params: { id: strin
       </div>
 
       <Card>
-        <h3 className="mb-[var(--space-300)] text-[16px] font-medium">Tamper log</h3>
+        <CardHeader title="Tamper log" meta={tamperEvents.length} />
         <TamperFeed events={tamperEvents} />
       </Card>
     </div>

@@ -96,6 +96,20 @@ Not started yet:
   to AGENTS.md.
 * Removed an AI co author line that had been added to a commit before this
   rule existed, by amending that commit and force pushing the correction.
+* Went back through the design system's component specifications (Button,
+  Card, Input, Stat tile, Status badge, Nav item) and brought the dashboard
+  in line with every state they describe: four button variants instead of
+  two, a focus ring on inputs, an error and hint line, a card header with an
+  optional monospace meta value, a stat tile delta line, badge colors and
+  spacing matched exactly, and a nav item left border that reserves its own
+  space so nothing shifts on the active state. Also brought in the real Bolt
+  logo mark (both the light and dark surface versions) into public/logo and
+  a small Logo component that switches between them with no script, and
+  fixed one real content rule violation: the sign in required error message
+  had a requirement id folded into it whose own id format uses the
+  character the content rule forbids, so that id was dropped from the
+  message shown to a person and kept only in a code comment instead.
+  Confirmed with a type check and against the running server afterward.
 
 ## Next up
 

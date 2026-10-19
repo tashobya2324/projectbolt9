@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
+import { Logo } from "@/components/Logo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -35,7 +36,10 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[var(--bg-000)] p-[var(--space-500)]">
       <form onSubmit={handleSubmit} className="bolt-card flex w-full max-w-sm flex-col gap-[var(--space-300)]">
-        <h1 className="text-[28px] font-semibold">Bolt</h1>
+        <div className="flex items-center gap-[var(--space-200)]">
+          <Logo size={36} />
+          <h1 className="text-[28px] font-semibold">Bolt</h1>
+        </div>
         <p className="text-[14px] text-[var(--text-100)]">Sign in as a fleet manager to view the dashboard.</p>
         <Input
           label="Email"
@@ -53,7 +57,7 @@ export default function LoginPage() {
           required
           autoComplete="current-password"
         />
-        {error ? <p className="text-[14px] text-[var(--status-critical)]">{error}</p> : null}
+        {error ? <p className="text-[14px] text-[var(--status-300)]">{error}</p> : null}
         <Button type="submit" disabled={loading}>
           {loading ? "Signing in" : "Sign in"}
         </Button>

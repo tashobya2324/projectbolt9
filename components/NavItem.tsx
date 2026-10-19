@@ -16,3 +16,8 @@ export function NavItem({ href, current, icon, children }: NavItemProps) {
     </Link>
   );
 }
+
+/** A group heading above a cluster of nav items, such as Fleet or Account. Not interactive. */
+export function NavSectionLabel({ children }: { children: ReactNode }) {
+  return <span className="bolt-nav-section-label px-[var(--space-200)]">{children}</span>;
+}

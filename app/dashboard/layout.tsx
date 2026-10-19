@@ -1,3 +1,4 @@
+import { Logo } from "@/components/Logo";
 import { NavItem } from "@/components/NavItem";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -5,7 +6,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex min-h-screen">
       <aside className="flex w-[220px] flex-shrink-0 flex-col gap-[var(--space-300)] border-r border-[var(--border-000)] bg-[var(--bg-100)] p-[var(--space-300)]">
-        <h1 className="px-[var(--space-200)] text-[20px] font-semibold">Bolt</h1>
+        <div className="flex items-center gap-[var(--space-200)] px-[var(--space-200)]">
+          <Logo size={28} />
+          <h1 className="text-[20px] font-semibold">Bolt</h1>
+        </div>
         <nav className="flex flex-col gap-[var(--space-000)]">
           <NavItem href="/dashboard">Fleet overview</NavItem>
         </nav>

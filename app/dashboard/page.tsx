@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { Card } from "@/components/Card";
+import { Card, CardHeader } from "@/components/Card";
 import { DeviceList } from "@/components/DeviceList";
 import { StatTile } from "@/components/StatTile";
 import { TamperFeed } from "@/components/TamperFeed";
@@ -47,9 +47,9 @@ export default async function FleetOverviewPage() {
       <h2 className="text-[28px] font-semibold">Fleet overview</h2>
 
       <div className="grid grid-cols-3 gap-[var(--space-400)]">
-        <StatTile label="Devices" value={String(devices.length)} helper={`${online} reporting`} />
-        <StatTile label="Unlocked" value={String(unlocked)} helper="right now" />
-        <StatTile label="Tamper events" value={String(tamperEvents.length)} helper="last 10 logged" />
+        <StatTile label="Devices" value={String(devices.length)} subtitle={`${online} reporting`} />
+        <StatTile label="Unlocked" value={String(unlocked)} subtitle="Right now" />
+        <StatTile label="Tamper events" value={String(tamperEvents.length)} subtitle="Last 10 logged" />
       </div>
 
       <div className="grid grid-cols-2 gap-[var(--space-400)]">
@@ -57,13 +57,13 @@ export default async function FleetOverviewPage() {
           <FleetMap devices={devices} />
         </Card>
         <Card>
-          <h3 className="mb-[var(--space-300)] text-[16px] font-medium">Tamper feed</h3>
+          <CardHeader title="Tamper feed" meta={tamperEvents.length} />
           <TamperFeed events={tamperEvents} />
         </Card>
       </div>
 
       <Card>
-        <h3 className="mb-[var(--space-300)] text-[16px] font-medium">Devices</h3>
+        <CardHeader title="Devices" meta={devices.length} />
         <DeviceList devices={devices} />
       </Card>
     </div>
@@ -72,7 +72,7 @@ export default async function FleetOverviewPage() {
 
 function NotConnectedNotice({ detail }: { detail?: string }) {
   return (
-    <Card className="max-w-lg">
+    <Card className="max-w-lg" surface="raised">
       <h2 className="mb-[var(--space-200)] text-[20px] font-semibold">Backend not connected yet</h2>
       <p className="text-[14px] text-[var(--text-100)]">
         Add your Supabase project URL and keys to .env.local (see env.example) once the Supabase project from

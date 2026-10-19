@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080" role="img" aria-label="Bolt logo mark">
+  <title>Bolt</title>
+  <rect width="1080" height="1080" fill="#f9f9f7"></rect>
+  <g fill="none" stroke="#0b0b0b" stroke-width="26" stroke-linecap="round">
+
+    <path d="M250 500 Q540 270 830 500"></path>
+    <path d="M250 580 Q540 810 830 580"></path>
+
+    <circle cx="540" cy="540" r="120"></circle>
+  </g>
+
+  <g fill="#128058">
+    <circle cx="540" cy="518" r="34"></circle>
+    <path d="M522 540 L558 540 L576 612 Q540 624 504 612 Z"></path>
+  </g>
+</svg>

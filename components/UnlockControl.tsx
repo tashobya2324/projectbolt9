@@ -50,7 +50,7 @@ export function UnlockControl({ deviceId }: UnlockControlProps) {
       {code ? (
         <p className="bolt-stat-figure text-[20px]">{code}</p>
       ) : null}
-      {errorMessage ? <p className="text-[14px] text-[var(--status-critical)]">{errorMessage}</p> : null}
+      {errorMessage ? <p className="text-[14px] text-[var(--status-300)]">{errorMessage}</p> : null}
     </div>
   );
 }

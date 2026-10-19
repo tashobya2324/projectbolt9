@@ -21,10 +21,10 @@
   --accent-000: #3d6b63;
   --accent-100: #335a53;
   --accent-200: #dceae7;
-  --status-good: #0ca30c;
-  --status-warn: #fab219;
-  --status-serious: #ec835a;
-  --status-critical: #d03b3b;
+  --status-000: #0ca30c;
+  --status-100: #fab219;
+  --status-200: #ec835a;
+  --status-300: #d03b3b;
   --success-000: #006300;
   --chart-0: #2a78d6;
   --chart-1: #eb6834;
@@ -129,14 +129,43 @@
    inlined in every component, so one token change updates every surface at once,
    and so a Tailwind utility (e.g. p-0) can still override a default here. */
 @layer components {
+/* Card: project/components/Card/README.md. Resting is the default; add
+   data-surface="raised" for a modal body or a popover sitting above it. */
 .bolt-card {
   background: var(--bg-100);
   border: 1px solid var(--border-000);
   border-radius: var(--radius-100);
   box-shadow: var(--shadow-000);
-  padding: var(--space-300);
+  padding: var(--space-400);
 }
 
+.bolt-card[data-surface="raised"] {
+  background: var(--bg-200);
+  box-shadow: var(--shadow-100);
+}
+
+.bolt-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-300);
+  padding-bottom: var(--space-300);
+  border-bottom: 1px solid var(--border-000);
+}
+
+.bolt-card-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.bolt-card-meta {
+  font-family: var(--font-mono);
+  color: var(--text-200);
+  font-size: 13px;
+}
+
+/* Button: project/components/Button/README.md. Four variants, five states.
+   Content rule: a label is a short verb phrase with no dash character. */
 .bolt-btn {
   display: inline-flex;
   align-items: center;
@@ -155,8 +184,12 @@
 }
 
 .bolt-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
+}
+
+.bolt-btn:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .bolt-btn-primary {
@@ -164,20 +197,43 @@
   color: var(--text-300);
 }
 
-.bolt-btn-primary:hover:not(:disabled) {
+.bolt-btn-primary:hover:not(:disabled),
+.bolt-btn-primary:active:not(:disabled) {
   background: var(--brand-100);
 }
 
 .bolt-btn-secondary {
+  background: var(--accent-000);
+  color: var(--text-300);
+}
+
+.bolt-btn-secondary:hover:not(:disabled),
+.bolt-btn-secondary:active:not(:disabled) {
+  background: var(--accent-100);
+}
+
+.bolt-btn-ghost {
   background: transparent;
   border-color: var(--border-100);
   color: var(--text-000);
 }
 
-.bolt-btn-secondary:hover:not(:disabled) {
+.bolt-btn-ghost:hover:not(:disabled),
+.bolt-btn-ghost:active:not(:disabled) {
   background: var(--bg-300);
 }
 
+.bolt-btn-destructive {
+  background: var(--status-300);
+  color: var(--text-300);
+}
+
+.bolt-btn-destructive:hover:not(:disabled),
+.bolt-btn-destructive:active:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+/* Input: project/components/Input/README.md. */
 .bolt-input {
   display: block;
   width: 100%;
@@ -195,7 +251,33 @@
 }
 
 .bolt-input:focus {
+  outline: none;
   border-color: var(--brand-000);
+  box-shadow: 0 0 0 3px var(--brand-200);
+}
+
+.bolt-input[data-invalid="true"] {
+  border-color: var(--status-300);
+}
+
+.bolt-input[data-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px var(--brand-200);
+}
+
+.bolt-input:disabled {
+  background: var(--bg-000);
+  color: var(--text-200);
+  cursor: not-allowed;
+}
+
+.bolt-input-hint {
+  font-size: 12px;
+  color: var(--text-200);
+}
+
+.bolt-input-error {
+  font-size: 12px;
+  color: var(--status-300);
 }
 
 .bolt-label {
@@ -205,12 +287,13 @@
   color: var(--text-100);
 }
 
+/* Stat tile: project/components/StatTile/README.md. */
 .bolt-stat-tile {
   background: var(--bg-100);
   border: 1px solid var(--border-000);
   border-radius: var(--radius-100);
   box-shadow: var(--shadow-000);
-  padding: var(--space-300);
+  padding: var(--space-400);
   display: flex;
   flex-direction: column;
   gap: var(--space-100);
@@ -223,13 +306,34 @@
   line-height: 1.2;
 }
 
-.bolt-status-badge {
+.bolt-stat-delta {
   display: inline-flex;
   align-items: center;
   gap: var(--space-000);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.bolt-stat-delta[data-direction="up"] {
+  color: var(--success-000);
+}
+
+.bolt-stat-delta[data-direction="down"] {
+  color: var(--status-300);
+}
+
+/* Status badge: project/components/StatusBadge/README.md. Color is always
+   paired with the dot plus this label, never shown alone. */
+.bolt-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-100);
   height: 24px;
   padding: 0 var(--space-200);
   border-radius: var(--radius-300);
+  border: 1px solid var(--border-000);
+  background: var(--bg-200);
+  color: var(--text-000);
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -242,6 +346,9 @@
   flex-shrink: 0;
 }
 
+/* Nav item: project/components/NavItem/README.md. The transparent left
+   border on the default state reserves the same space the active state's
+   border fills, so nothing shifts when a row becomes active. */
 .bolt-nav-item {
   display: flex;
   align-items: center;
@@ -249,6 +356,7 @@
   height: 40px;
   padding: 0 var(--space-200);
   border-radius: var(--radius-000);
+  border-left: 2px solid transparent;
   font-size: 14px;
   font-weight: 400;
   color: var(--text-100);
@@ -262,7 +370,16 @@
 
 .bolt-nav-item[aria-current="page"] {
   background: var(--brand-200);
-  color: var(--brand-000);
+  color: var(--text-000);
+  border-left-color: var(--brand-000);
   font-weight: 500;
+}
+
+.bolt-nav-section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-200);
 }
 }
