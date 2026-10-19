@@ -1,0 +1,21 @@
+# Next.js
+/.next/
+/out/
+
+# Node
+/node_modules/
+npm-debug.log*
+
+# Env
+.env
+.env*.local
+
+# TypeScript
+next-env.d.ts
+*.tsbuildinfo
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
