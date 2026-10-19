@@ -81,6 +81,21 @@ Not started yet:
 * Added this file and AGENTS.md.
 * Installed Node.js and ran the dashboard locally for the first time to
   confirm it builds and renders.
+* Verified the running server directly: the root path redirects to
+  /dashboard, /dashboard and /login both render, the unlock route answers
+  with a clear not configured response instead of crashing, and the webhook
+  route correctly rejects a call with no shared secret set.
+* Noticed during install that next@14.2.15 carried a known security
+  vulnerability and moved the project to the patched 14.2.35. A full
+  `npm audit` still lists sixteen findings, one critical, mostly tied to
+  Next.js advisories whose full fix is next@16.4.2, a breaking change
+  (Next 15 and 16 make params, cookies, and headers asynchronous, so every
+  route and page that reads them would need updating), plus a matching jump
+  to Tailwind 4, which changes how its configuration works. Left as a
+  decision for the team rather than done automatically; see the note added
+  to AGENTS.md.
+* Removed an AI co author line that had been added to a commit before this
+  rule existed, by amending that commit and force pushing the correction.
 
 ## Next up
 

@@ -61,6 +61,17 @@ task you were given.
    constraints); local development points at the shared cloud services
    directly. Do not introduce a container based workflow.
 
+9. A plain `npm audit` currently lists sixteen findings, one critical, most
+   tied to Next.js advisories whose full fix is a jump to next version 16,
+   which is a breaking change (params, cookies, and headers all become
+   asynchronous, so every page and route touching them needs updating), and
+   a matching jump to Tailwind version 4, which replaces the configuration
+   file approach this project currently uses. Do not run this upgrade on
+   your own judgment; raise it with the person you are working with first,
+   since it touches nearly every file in app and lib. Smaller, non breaking
+   patch bumps that `npm audit` offers without the `force` flag are fine to
+   apply on sight.
+
 ## Conventions already in place
 
 * Next.js with the app router, TypeScript, and Tailwind. Styling goes
