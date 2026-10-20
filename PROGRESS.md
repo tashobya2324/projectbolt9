@@ -18,9 +18,11 @@ Built and in the repository:
   badge, and Nav item. Ported into app/globals.css as real CSS variables and
   component classes.
 * The database schema (db/schema.sql): devices, telemetry, tamper_events (
-  append only, enforced by a trigger), and access_sessions, plus row level
-  security policies limiting authenticated reads and routing all writes
-  through the service role key.
+  append only, enforced by a trigger), access_sessions, profiles (role based
+  access, auto created on sign up), geofences, device_settings, alerts, and
+  stored_files, plus row level security policies limiting authenticated
+  reads and routing all writes through the service role key. The five newer
+  tables are not read or written by the dashboard yet; see Next up.
 * A Next.js dashboard: a fleet overview page (live map, stat tiles, tamper
   feed, device list) and a device detail page (fuel chart, tamper log, unlock
   code control), both behind a Supabase auth gate.
@@ -110,10 +112,37 @@ Not started yet:
   character the content rule forbids, so that id was dropped from the
   message shown to a person and kept only in a code comment instead.
   Confirmed with a type check and against the running server afterward.
+* Added five tables to db/schema.sql: profiles (gives every signed in person
+  a role, fleet manager or supervisor, matching the two dashboard user
+  classes in the SRS, filled in automatically by a trigger on sign up),
+  geofences (a center point and a radius per device), device_settings (the
+  telemetry interval, tamper threshold, fuel drop rate, and unlock code
+  period that the functional requirements call configurable rather than
+  fixed in code), alerts (a durable log of what the backend sends or should
+  send as a push notification, separate from the append only tamper log),
+  and stored_files (metadata for whatever lands in Cloudflare R2). All five
+  have row level security matching the existing tables and a matching
+  TypeScript type in lib/types.ts, but nothing in the dashboard reads or
+  writes them yet. That wiring is next.
+* Checked the full commit history and the local git identity: every commit
+  so far is authored as the person actually working on this repository,
+  with no mention of an assistant anywhere, so there was nothing left to
+  remove there. Changed the rule in AGENTS.md going forward though: rather
+  than no trailer at all, every commit from here on names the project
+  itself as a co author instead of a person or an assistant. The four
+  commits made before this rule existed were left alone rather than
+  rewriting pushed history a second time for a cosmetic change.
 
 ## Next up
 
-1. Complete the four setup steps in README.md (Supabase, EMQX, Vercel, GitHub
+1. Wire the five new tables into the application: check profiles.role
+   before letting someone issue an unlock code, read device_settings
+   instead of the hard coded values in lib/unlockCode.ts and the webhook
+   route, show geofences on the fleet map and flag a breach on ingest, give
+   alerts its own feed on the dashboard and have the webhook route and a
+   future Firebase integration write to it, and list stored_files wherever
+   reports or firmware end up.
+2. Complete the four setup steps in README.md (Supabase, EMQX, Vercel, GitHub
    collaborators), then fill in .env.local from env.example.
 2. Create a fleet manager user in Supabase Auth and sign in at /login.
 3. Configure the EMQX Rule Engine webhook action to call /api/webhook/emqx,
